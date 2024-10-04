@@ -6,7 +6,7 @@ delay = 0.1
 
 wn = turtle.Screen()
 wn.title("SNAKE GAME")
-wn.bgcolor('black')
+wn.bgcolor("black")
 wn.setup(width=600, height=600)
 wn.tracer(0)  # turns off the screen updates
 
@@ -14,7 +14,7 @@ wn.tracer(0)  # turns off the screen updates
 head = turtle.Turtle()
 head.speed(0)
 head.shape('square')
-head.color('white')
+head.color('red')
 head.penup()
 head.goto(0, 0)
 head.direction = 'stop'
@@ -53,7 +53,17 @@ pen.color('white')
 pen.penup()
 pen.hideturtle()
 pen.goto(0, 260)
-pen.write("Score: 0 High Score: 0", align="center", font=("Courier", 24, "normal"))
+pen.write("Player 1 Score: 0 High Score: 0", align="center", font=("Courier", 20, "normal"))
+
+# Pen for displaying score
+pen1 = turtle.Turtle()
+pen1.speed(0)
+pen1.shape('square')
+pen1.color('white')
+pen1.penup()
+pen1.hideturtle()
+pen1.goto(0, 225)
+pen1.write("Player 2 Score: 0 High Score: 0", align="center", font=("Courier", 20, "normal"))
 
 # Functions
 def go_up():
@@ -154,7 +164,7 @@ while True:
         # Reset the score but keep the high score
         Score = 0
         pen.clear()
-        pen.write(f"Score: {Score} High Score: {High_Score}", align="center", font=("Courier", 24, "normal"))
+        pen.write(f"player 1 Score: {Score} High Score: {High_Score}", align="center", font=("Courier", 20, "normal"))
 
         # Reset the delay
         delay = 0.1
@@ -174,8 +184,8 @@ while True:
 
         # Reset the score but keep the high score
         Score = 0
-        pen.clear()
-        pen.write(f"Score: {Score} High Score: {High_Score}", align="center", font=("Courier", 24, "normal"))
+        pen1.clear()
+        pen1.write(f"player 2 Score: {Score} High Score: {High_Score}", align="center", font=("Courier", 20, "normal"))
 
         # Reset the delay
         delay = 0.1
@@ -203,7 +213,9 @@ while True:
         if Score > High_Score:
             High_Score = Score  # Update high score if current score is greater
         pen.clear()
-        pen.write(f"Score: {Score} High Score: {High_Score}", align="center", font=("Courier", 24, "normal"))
+        pen.write(f"Player 1 Score: {Score} High Score: {High_Score}", align="center", font=("Courier", 20, "normal"))
+
+         
     
      # Check for a collision with the food
     if head1.distance(food) < 20 :
@@ -227,8 +239,8 @@ while True:
         Score += 10
         if Score > High_Score:
             High_Score = Score  # Update high score if current score is greater
-        pen.clear()
-        pen.write(f"Score: {Score} High Score: {High_Score}", align="center", font=("Courier", 24, "normal"))
+        pen1.clear()
+        pen1.write(f"player 2 Score: {Score} High Score: {High_Score}", align="center", font=("Courier", 20, "normal"))
 
     # Move the segments
     for index in range(len(segments) - 1, 0, -1):
@@ -273,7 +285,29 @@ while True:
             # Reset the score but not the high score
             Score = 0
             pen.clear()
-            pen.write(f"Score: {Score} High Score: {High_Score}", align="center", font=("Courier", 24, "normal"))
+            pen.write(f"Player 1 Score: {Score} High Score: {High_Score}", align="center", font=("Courier", 20, "normal"))
+
+            # Reset the delay
+            delay = 0.1
+
+    # Check for a collision with the body
+    for segment in segments1:
+        if segment.distance(head1) < 20:
+            time.sleep(1)
+            head1.goto(0, 0)
+            head1.direction = 'stop'
+
+            # Hide the segments
+            for segment in segments1:
+                segment.goto(1000, 1000)
+
+            # Clear the segments list
+            segments1.clear()
+
+            # Reset the score but not the high score
+            Score = 0
+            pen.clear()
+            pen.write(f"Score: {Score} High Score: {High_Score}", align="center", font=("Courier", 20, "normal"))
 
             # Reset the delay
             delay = 0.1
